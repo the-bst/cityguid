@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MapView from './map.js';
+import Sider from './menu.js';
 
 export default class App extends React.Component{
 
@@ -15,7 +15,10 @@ export default class App extends React.Component{
 
   render(){
     return(
-      <MapView></MapView>
+      <div>
+        <Sider className = "Sider"></Sider>
+        <MapView className = "Map"></MapView>
+      </div>
     )
   }
 }
