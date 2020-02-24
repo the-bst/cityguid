@@ -7,10 +7,6 @@ const position = [37.335556, -122.009167];
 export default class MapView extends React.Component {
     render() {
         return (
-                  <div
-                    style={{
-                        height:"100%"
-                    }}>
                     <Map center={position} zoom={13}>
                         <TileLayer
                           url='http://{s}.tile.osm.org/{z}/{x}/{y}.png'
@@ -22,7 +18,6 @@ export default class MapView extends React.Component {
                           </Popup>
                         </Marker>
                       </Map>
-                  </div>
         );
     }
 }
