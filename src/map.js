@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import './Design/map.scss';
 
 const position = [37.335556, -122.009167];
 
