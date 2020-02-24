@@ -3,3 +3,11 @@
     width: 100%;
     margin: 0 auto;
 }
+
+.Marker{
+    z-index: 10000;
+}
+
+.Map{
+    z-index: 1;
+}
