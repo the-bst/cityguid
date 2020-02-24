@@ -14,6 +14,16 @@ export default class App extends React.Component{
   }
 
   render(){
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(displayLocationInfo);
+    }
+    
+    function displayLocationInfo(position) {
+      const lng = position.coords.longitude;
+      const lat = position.coords.latitude;
+    
+      console.log(`longitude: ${ lng } | latitude: ${ lat }`);
+    }
     return(
       <div>
         <Sider className = "Sider"></Sider>
