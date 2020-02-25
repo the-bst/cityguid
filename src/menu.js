@@ -11,9 +11,9 @@ export default class Sider extends React.Component {
 
   render() {
     return (
-      <DropdownButton id="dropdown-basic-button" title="Dropdown ntm">
+      <DropdownButton id="dropdown-basic-button" title="Menu">
         <Dropdown.Item href="#" onClick={() => {this.props.showListeView()}}>Liste des monuments</Dropdown.Item>
-        <Dropdown.Item href="#" onClick={() => {this.props.showMapView()}}>map</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={() => {this.props.showMapView()}}>Carte</Dropdown.Item>
       </DropdownButton> 
     )
   }
