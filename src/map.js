@@ -72,8 +72,8 @@ setTimeout = (() => {
     return (
       <Map center={center_map} zoom={13} className="Map">
         <TileLayer
-          url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
         {this.start()}
         <Marker position={this.state.position} icon={myIcon} className="Marker">
