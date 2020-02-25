@@ -16,11 +16,12 @@ var myIcon = L.icon({
 });
 
 const center_map = [49.1191, 6.1727];
+
 export default class MapView extends Component {
 
   constructor(props){
     super(props);
-
+    const watcher = navigator.geolocation.watchPosition(this.displayLocationInfo);
     this.state = {
       position:[0,0],
     }
@@ -38,15 +39,13 @@ start=()=>{
   var position=[];
   position.push(lat);
   position.push(lng);
-  // this.setState({position:this.state.position.push(lng)});
-  // this.setState({position:this.state.position.push(lat)});
   this.setState({position,});
-  console.log(`longitude: ${ lng } | latitude: ${ lat }`);
-  console.log(`Position :`,this.state.position);
+  // console.log(`longitude: ${ lng } | latitude: ${ lat }`);
+  // console.log(`Position :`,this.state.position);
 }
 
 setTimeout = (() => {
-  navigator.geolocation.clearWatch(center_map);
+  navigator.geolocation.clearWatch(this.watcher);
 }, 15000);
 
 
