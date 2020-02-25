@@ -5,6 +5,7 @@ import "./Design/map.css";
 import L from "leaflet";
 import icon from "./BEBER.png";
 import axios from 'axios';
+import marq from './marqueur.png';
 
 var myIcon = L.icon({
   iconUrl: icon,
@@ -14,6 +15,11 @@ var myIcon = L.icon({
   shadowUrl: "my-icon-shadow.png",
   shadowSize: [68, 95],
   shadowAnchor: [22, 94]
+});
+var myMarq = L.icon({
+    iconUrl: marq,
+    iconSize: [45, 50],
+    shadowUrl: 'my-icon-shadow.png',
 });
 
 const center_map = [49.1191, 6.1727];
@@ -78,7 +84,11 @@ setTimeout = (() => {
         {
           this.state.Place.map(
             (Lieu, index) =>
-              <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={myIcon} className="Marker"> </Marker>
+                <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={myMarq} className="Marker">
+                    <Popup>
+                        <span>{Lieu.nom_lieux}</span>
+                    </Popup>
+                </Marker>
 
           )
         }
