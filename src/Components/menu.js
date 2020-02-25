@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
-import './Design/menu.scss';
-import { ReactComponent as Logo } from './bars-solid.svg';
+import '../Design/menu.css';
+
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton'

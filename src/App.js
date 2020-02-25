@@ -1,7 +1,7 @@
 import React from 'react';
-import './App.css';
-import MapView from './map.js';
-import Sider from './menu.js';
+import './Design/App.css';
+import MapView from './Components/map.js';
+import Sider from './Components/menu.js';
 
 export default class App extends React.Component{
 

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
-import "./Design/map.css";
+import "../Design/map.css";
 import L from "leaflet";
-import icon from "./BEBER.png";
+import icon from "../Icons/BEBER.png";
 import axios from 'axios';
-import marq from './marqueur.png';
+import marq from '../Icons/marqueur.png';
 
 var myIcon = L.icon({
   iconUrl: icon,
