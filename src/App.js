@@ -53,7 +53,7 @@ export default class App extends React.Component{
     }
     
     return(
-      <div>
+      <div className="body">
         <Sider className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
         {this.state.showMapView ? <MapView className="Map"/> : null }
         {this.state.showListeView ? (
