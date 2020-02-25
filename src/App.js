@@ -23,17 +23,6 @@ export default class App extends React.Component{
 
       console.log(`longitude: ${ lng } | latitude: ${ lat }`);
     }*/
-    const watcher = navigator.geolocation.watchPosition(displayLocationInfo);
-
-    setTimeout(() => {
-      navigator.geolocation.clearWatch(watcher);
-    }, 5000);
-
-    function displayLocationInfo(position) {
-      const lng = position.coords.longitude;
-      const lat = position.coords.latitude;
-      console.log(`longitude: ${ lng } | latitude: ${ lat }`);
-    }
     return(
       <div>
         <Sider className = "Sider"></Sider>
