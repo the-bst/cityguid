@@ -9,9 +9,29 @@ export default class App extends React.Component{
     super(props);
 
     this.state = {
+      showMapView: true,
+      showListeView: false,
     }
 
+    this.showMapView = this.showMapView.bind(this);
+    this.showListeView = this.showListeView.bind(this);
+
   }
+
+  showMapView() {
+    this.setState({
+      showMapView: true,
+      showListeView: false
+    })
+  }
+
+   showListeView() {
+    this.setState({
+      showListeView: true,
+      showMapView: false
+    })
+  }
+
   render(){
     /*if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(displayLocationInfo);
@@ -23,11 +43,26 @@ export default class App extends React.Component{
 
       console.log(`longitude: ${ lng } | latitude: ${ lat }`);
     }*/
+    var prout = this.state.showMapView ? "42" : "21";
+
+    var prout;
+    if (this.state.showMapView) {
+      prout = "42"
+    } else {
+      prout = "21"
+    }
+    
     return(
       <div>
-        <Sider className = "Sider"></Sider>
-        <MapView className = "Map"></MapView>
+        <Sider className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
+        {this.state.showMapView ? <MapView className="Map"/> : null }
+        {this.state.showListeView ? (
+          <div id="liste">
+            Ma liste de monuments
+          </div>) : null
+        }
       </div>
     )
   }
 }
+

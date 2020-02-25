@@ -12,12 +12,11 @@ export default class Sider extends React.Component {
   render() {
     return (
       <DropdownButton id="dropdown-basic-button" title="Dropdown ntm">
-  <Dropdown.Item href="#/action-1">Liste des monuments</Dropdown.Item>
-  <Dropdown.Item href="#/action-2">map</Dropdown.Item>
-  <Dropdown.Item href="#/action-3">Jackie et michel</Dropdown.Item>
-</DropdownButton>
+        <Dropdown.Item href="#" onClick={() => {this.props.showListeView()}}>Liste des monuments</Dropdown.Item>
+        <Dropdown.Item href="#" onClick={() => {this.props.showMapView()}}>map</Dropdown.Item>
+      </DropdownButton> 
     )
   }
 }
 
-ReactDOM.render(<Sider />, document.getElementById('root'));
+//ReactDOM.render(<Sider />, document.getElementById('root'));
