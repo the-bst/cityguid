@@ -14,7 +14,7 @@ export default class App extends React.Component{
   }
 
   render(){
-    if (navigator.geolocation) {
+    /*if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(displayLocationInfo);
     }
     
@@ -22,6 +22,17 @@ export default class App extends React.Component{
       const lng = position.coords.longitude;
       const lat = position.coords.latitude;
     
+      console.log(`longitude: ${ lng } | latitude: ${ lat }`);
+    }*/
+    const watcher = navigator.geolocation.watchPosition(displayLocationInfo);
+
+    setTimeout(() => {
+      navigator.geolocation.clearWatch(watcher);
+    }, 5000);
+
+    function displayLocationInfo(position) {
+      const lng = position.coords.longitude;
+      const lat = position.coords.latitude;
       console.log(`longitude: ${ lng } | latitude: ${ lat }`);
     }
     return(
