@@ -9,7 +9,7 @@ import marq from './marqueur.png';
 
 var myIcon = L.icon({
   iconUrl: icon,
-  iconSize: [38, 95],
+  iconSize: [88, 105],
   iconAnchor: [22, 94],
   popupAnchor: [-3, -76],
   shadowUrl: "my-icon-shadow.png",
