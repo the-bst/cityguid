@@ -27,11 +27,11 @@ export default class Sider extends React.Component {
             <ButtonGroup>
                 <Button id="map" type="primary" onClick={() => { this.props.showMapView() }}>
                     <FaMap size="2.2em" />
-                    Afficher la Carte
+
                 </Button>
                 <Button id="listmon" type="primary" onClick={() => { this.props.showListeView() }}>
-                    Liste Monuments
-                   <FaMonument size="2.2em" />
+                    
+                   <FaMonument size="1.7em" />
                 </Button>
             </ButtonGroup>
         )
