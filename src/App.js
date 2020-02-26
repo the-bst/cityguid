@@ -2,7 +2,7 @@ import React from 'react';
 import './Design/App.css';
 import MapView from './Components/map.js';
 import Sider from './Components/menu.js';
-
+import List from './Components/liste.js';
 export default class App extends React.Component{
 
   constructor(props){
@@ -58,7 +58,7 @@ export default class App extends React.Component{
         {this.state.showMapView ? <MapView className="Map"/> : null }
         {this.state.showListeView ? (
           <div id="liste">
-            Ma liste de monuments
+            <List></List>
           </div>) : null
         }
       </div>
