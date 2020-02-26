@@ -1,15 +1,15 @@
 .Sider{
-    display: flex;
+   
     right: 0;
-    position: relative;
+    
     z-index: 1000;
    /* size: fixed;*/
+   width: 100%;
 }
 
 .body{
     margin: 0;
-    display: flex;
-    position: relative;
+  
 }
 
 .Map{
