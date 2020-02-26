@@ -60,8 +60,14 @@ export default class App extends React.Component{
           <div id="liste">
             <List></List>
           </div>) : null
-        }
-      </div>
+            }
+
+            <div className="foot">
+                Je suis le footer de l'app
+                
+            </div>
+        </div>
+        
     )
   }
 }
