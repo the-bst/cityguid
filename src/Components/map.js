@@ -3,16 +3,16 @@ import ReactDOM from "react-dom";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "../Design/map.css";
 import L from "leaflet";
-import icon from "../Icons/location-arrow-solid.svg";
+import icon from "../location-arrow-solid.svg";
 import axios from 'axios';
-import marq from '../Icons/marqueur.png';
+import marq from '../marqueur.png';
 
-var myIcon = L.icon({
+var myicon = L.icon({
   iconUrl: icon,
   iconSize: [22, 52],
   shadowUrl: "my-icon-shadow.png",
 });
-var myMarq = L.icon({
+var mymarq = L.icon({
     iconUrl: marq,
     iconSize: [45, 50],
     shadowUrl: 'my-icon-shadow.png',
@@ -72,7 +72,7 @@ setTimeout = (() => {
           attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
         {this.start()}
-        <Marker position={this.state.position} icon={myIcon} className="Marker">
+        <Marker position={this.state.position}  icon={myicon} className="Marker">
           <Popup>
             <span>Vous êtes ici</span>
           </Popup>
@@ -80,7 +80,7 @@ setTimeout = (() => {
         {
           this.state.Place.map(
             (Lieu, index) =>
-                <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={myMarq} className="Marker">
+                <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={mymarq} className="Marker">
                     <Popup>
                         <span>{Lieu.nom_lieux}</span>
                     </Popup>
