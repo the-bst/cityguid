@@ -2,8 +2,8 @@
     display: flex;
     right: 0;
     position: relative;
-    z-index: 10;
-    size: fixed;
+    z-index: 1000;
+   /* size: fixed;*/
 }
 
 .body{
