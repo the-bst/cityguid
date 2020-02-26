@@ -6,6 +6,7 @@ import L from "leaflet";
 import icon from "../location-arrow-solid.svg";
 import axios from 'axios';
 import marq from '../marqueur.png';
+import distanceTo from "leaflet";
 
 var myicon = L.icon({
   iconUrl: icon,
@@ -19,7 +20,6 @@ var mymarq = L.icon({
 });
 
 const center_map = [49.1191, 6.1727];
-
 export default class MapView extends Component {
 
   
@@ -31,6 +31,10 @@ export default class MapView extends Component {
       Place: [],
     }
   }
+  distance = (lng1,lat1,lng2,lat2) => {
+    return Math.sqrt((((lng2-lng1)*(lng2-lng1)) + ((lat2-lat1)*(lat2-lat1))))
+  }
+
   componentDidMount() {
 
     axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
@@ -56,8 +60,15 @@ export default class MapView extends Component {
   position.push(lat);
   position.push(lng);
   this.setState({position,});
-  // console.log(`longitude: ${ lng } | latitude: ${ lat }`);
-  // console.log(`Position :`,this.state.position);
+  var latlng = L.latLng(lat,lng);
+  this.state.Place.map(
+    (Lieu, index) => {
+      var latlng2 = L.latLng(Lieu.coord_nord,Lieu.coord_est);
+      if(latlng2.distanceTo(latlng)<1000){
+        console.log("Lieu: "+Lieu.nom_lieux+"distance: "+latlng2.distanceTo(latlng));
+      }
+    }
+  )
 }
 
 setTimeout = (() => {
