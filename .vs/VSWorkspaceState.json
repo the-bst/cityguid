@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\public",
-    "\\src"
+    "\\src",
+    "\\src\\Components",
+    "\\src\\Design",
+    "\\src\\Icons"
   ],
-  "SelectedNode": "\\public\\index.html",
+  "SelectedNode": "\\src\\Icons\\marqueur.png",
   "PreviewInSolutionExplorer": false
 }
