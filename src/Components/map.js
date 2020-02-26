@@ -14,37 +14,43 @@ var myicon = L.icon({
   shadowUrl: "my-icon-shadow.png",
 });
 var mymarq = L.icon({
-    iconUrl: marq,
-    iconSize: [45, 50],
-    shadowUrl: 'my-icon-shadow.png',
+  iconUrl: marq,
+  iconSize: [45, 50],
+  shadowUrl: 'my-icon-shadow.png',
 });
 
 const center_map = [49.1191, 6.1727];
 export default class MapView extends Component {
 
-  
+
   constructor(props) {
     super(props);
     const watcher = navigator.geolocation.watchPosition(this.displayLocationInfo);
     this.state = {
       position: [49.1191, 6.1727],
       Place: [],
+      liste_bat: {},
     }
   }
-  distance = (lng1,lat1,lng2,lat2) => {
-    return Math.sqrt((((lng2-lng1)*(lng2-lng1)) + ((lat2-lat1)*(lat2-lat1))))
-  }
-
-  componentDidMount() {
-
-    axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
+  get_monument = async () => {
+    await axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
       .then(response => {
         this.setState({ Place: response.data })
         console.log(response.data);
-        //console.log(this.state.Place[0].coord_nord)
-
+        let liste_bat = {};
+        this.state.Place.map(
+          (Lieu, index) => {
+            liste_bat[Lieu.nom_lieux] = 0;
+          }
+        )
+        this.setState({ liste_bat });
+        console.log(this.state.liste_bat);
       });
-      this.start();
+
+  }
+  componentDidMount() {
+    this.get_monument();
+    this.start();
   }
   start = () => {
     if (navigator.geolocation) {
@@ -54,27 +60,35 @@ export default class MapView extends Component {
   setTimeout = (() => {
     navigator.geolocation.clearWatch(this.watcher);
   }, 15000);
- displayLocationInfo = (position) =>{
-  const lng = position.coords.longitude;
-  const lat = position.coords.latitude;
-  var position=[];
-  position.push(lat);
-  position.push(lng);
-  this.setState({position,});
-  var latlng = L.latLng(lat,lng);
-  this.state.Place.map(
-    (Lieu, index) => {
-      var latlng2 = L.latLng(Lieu.coord_nord,Lieu.coord_est);
-      if(latlng2.distanceTo(latlng)<100){
-        console.log("Lieu: "+Lieu.nom_lieux+"distance: "+latlng2.distanceTo(latlng));
+  displayLocationInfo = (position) => {
+    const lng = position.coords.longitude;
+    const lat = position.coords.latitude;
+    var position = [];
+    position.push(lat);
+    position.push(lng);
+    this.setState({ position, });
+    var latlng = L.latLng(lat, lng);
+    this.state.Place.map(
+      (Lieu, index) => {
+        var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
+        if (latlng2.distanceTo(latlng) < 3000) {
+          if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
+            alert("Test");
+            this.state.liste_bat[Lieu.nom_lieux] = 1;
+          }
+          else {
+            if (this.state.liste_bat[Lieu.nom_lieux] == 1) {
+              this.state.liste_bat[Lieu.nom_lieux] = 0;
+            }
+          }
+        }
       }
-    }
-  )
-}
+    )
+  }
 
-setTimeout = (() => {
-  navigator.geolocation.clearWatch(this.watcher);
-}, 15000);
+  setTimeout = (() => {
+    navigator.geolocation.clearWatch(this.watcher);
+  }, 15000);
 
   render() {
     return (
@@ -83,7 +97,7 @@ setTimeout = (() => {
           url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
-        <Marker position={this.state.position}  icon={myicon} className="Marker">
+        <Marker position={this.state.position} icon={myicon} className="Marker">
           <Popup>
             <span>Vous êtes ici</span>
           </Popup>
@@ -91,11 +105,11 @@ setTimeout = (() => {
         {
           this.state.Place.map(
             (Lieu, index) =>
-                <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={mymarq} className="Marker">
-                    <Popup>
-                        <span>{Lieu.nom_lieux}</span>
-                    </Popup>
-                </Marker>
+              <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={mymarq} className="Marker">
+                <Popup>
+                  <span>{Lieu.nom_lieux}</span>
+                </Popup>
+              </Marker>
 
           )
         }
