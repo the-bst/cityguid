@@ -1,0 +1,13 @@
+.bdd_img{
+    width: 220px;
+    height: 140px;
+}
+
+.liste_monuments{
+    margin: 20px;
+    text-align: justify;
+}
+
+.liste_monuments h1{
+    text-decoration: underline;
+}

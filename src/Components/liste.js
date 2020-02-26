@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../Design/map.css";
 import axios from 'axios';
+import "../Design/liste.css";
 
 export default class List extends React.Component {
     constructor(props) {
@@ -24,7 +25,13 @@ export default class List extends React.Component {
             {
                 this.state.Place.map(
                     (Lieu, index) =>
-                        <p>{Lieu.nom_lieux} <a href={Lieu.lien}>Lien wikipédia</a></p>
+                    <section className="liste_monuments">
+                        <h1>{Lieu.nom_lieux}</h1>
+                        <img src={Lieu.image} className="bdd_img"/>
+                        <p className="bdd_desc">{Lieu.description}</p>
+                        <br />
+                        <a href={Lieu.lien}>Pour en savoir plus...</a>
+                    </section>
                 )
             }
             </div>
