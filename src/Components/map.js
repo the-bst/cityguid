@@ -43,7 +43,8 @@ export default class MapView extends Component {
         console.log(response.data);
         //console.log(this.state.Place[0].coord_nord)
 
-      })
+      });
+      this.start();
   }
   start = () => {
     if (navigator.geolocation) {
@@ -64,7 +65,7 @@ export default class MapView extends Component {
   this.state.Place.map(
     (Lieu, index) => {
       var latlng2 = L.latLng(Lieu.coord_nord,Lieu.coord_est);
-      if(latlng2.distanceTo(latlng)<1000){
+      if(latlng2.distanceTo(latlng)<100){
         console.log("Lieu: "+Lieu.nom_lieux+"distance: "+latlng2.distanceTo(latlng));
       }
     }
@@ -82,7 +83,6 @@ setTimeout = (() => {
           url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
-        {this.start()}
         <Marker position={this.state.position}  icon={myicon} className="Marker">
           <Popup>
             <span>Vous êtes ici</span>
