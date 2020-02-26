@@ -24,7 +24,7 @@ export default class List extends React.Component {
             {
                 this.state.Place.map(
                     (Lieu, index) =>
-                        <p>{Lieu.nom_lieux}</p>
+                        <p>{Lieu.nom_lieux} <a href={Lieu.lien}>Lien wikipédia</a></p>
                 )
             }
             </div>
