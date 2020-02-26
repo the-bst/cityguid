@@ -3,18 +3,14 @@ import ReactDOM from "react-dom";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "../Design/map.css";
 import L from "leaflet";
-import icon from "../Icons/BEBER.png";
+import icon from "../Icons/location-arrow-solid.svg";
 import axios from 'axios';
 import marq from '../Icons/marqueur.png';
 
 var myIcon = L.icon({
   iconUrl: icon,
-  iconSize: [88, 105],
-  iconAnchor: [22, 94],
-  popupAnchor: [-3, -76],
+  iconSize: [22, 52],
   shadowUrl: "my-icon-shadow.png",
-  shadowSize: [68, 95],
-  shadowAnchor: [22, 94]
 });
 var myMarq = L.icon({
     iconUrl: marq,
@@ -31,7 +27,7 @@ export default class MapView extends Component {
     super(props);
     const watcher = navigator.geolocation.watchPosition(this.displayLocationInfo);
     this.state = {
-      position: [0, 0],
+      position: [49.1191, 6.1727],
       Place: [],
     }
   }
@@ -78,7 +74,7 @@ setTimeout = (() => {
         {this.start()}
         <Marker position={this.state.position} icon={myIcon} className="Marker">
           <Popup>
-            <span>C EST BEBER</span>
+            <span>Vous êtes ici</span>
           </Popup>
         </Marker>
         {
