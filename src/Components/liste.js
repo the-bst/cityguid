@@ -53,8 +53,8 @@ export default class List extends React.Component {
     }
     );
     //console.log("Erreur apr�s map :"+ this.state.error);
+    this.setState({value:Textee});
     if (!this.state.Textee==""){
-      this.setState({value:Textee});
       this.checkError();
     }
   }
