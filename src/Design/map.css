@@ -1,7 +1,8 @@
 .leaflet-container {
-    height: calc( 100vh - 70px );
+    height: calc( 99vh - 73px );
     width: 100%;
     margin: 0 auto;
+   
 }
 
 .dropdown{
