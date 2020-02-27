@@ -35,7 +35,7 @@
   }
 
   .title_mon{
-    padding-top: 1%;
+    padding-top: 5%;
     color: rgba(27, 26, 26, 0.856);
     text-align: center;
     text-transform: uppercase;
@@ -44,3 +44,8 @@
     width: 100%;
     text-decoration: overline;
   }
+
+
+.ant-input-affix-wrapper {
+    top : 40px;
+}

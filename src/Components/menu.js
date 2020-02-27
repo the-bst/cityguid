@@ -31,7 +31,7 @@ export default class Sider extends React.Component {
                 </Button>
                 <Button id="listmon" type="primary" onClick={() => { this.props.showListeView() }}>
                     
-                   <FaMonument size="1.7em" />
+                   <FaMonument size="2.2em" />
                 </Button>
             </ButtonGroup>
         )

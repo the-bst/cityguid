@@ -54,7 +54,7 @@ export default class App extends React.Component{
     
     return(
       <div className="body">
-        <Sider className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
+        <Sider id="clc" className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
         {this.state.showMapView ? <MapView className="Map"/> : null }
         {this.state.showListeView ? (
           <div id="liste">
@@ -63,7 +63,9 @@ export default class App extends React.Component{
             }
 
             <div className="foot">
-                Je suis le footer de l'app
+                Copyright
+                < br/>
+                Arioli Cazzoli Collignon Francois Schneider
                 
             </div>
         </div>
