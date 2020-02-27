@@ -38,7 +38,7 @@ export default class MapView extends Component {
     // console.log(Object.keys(liste_bati_dist).length);
     if(Object.keys(liste_bati_dist).length == 1){
       for(var key in liste_bati_dist){
-        alert("Vous êtes proche de "+ key);
+        window.prompt("sometext","defaultText");
       }
     }
     else if(Object.keys(liste_bati_dist).length > 1){
