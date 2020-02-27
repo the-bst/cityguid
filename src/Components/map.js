@@ -6,6 +6,7 @@ import L from "leaflet";
 import icon from "../location-arrow-solid.svg";
 import axios from 'axios';
 import marq from '../marqueur.png';
+import { Modal } from 'antd';
 
 var myicon = L.icon({
   iconUrl: icon,
@@ -17,6 +18,10 @@ var mymarq = L.icon({
   iconSize: [45, 50],
   shadowUrl: 'my-icon-shadow.png',
 });
+
+
+
+const { confirm } = Modal;
 
 const center_map = [49.1191, 6.1727];
 export default class MapView extends Component {
@@ -38,7 +43,19 @@ export default class MapView extends Component {
     // console.log(Object.keys(liste_bati_dist).length);
     if(Object.keys(liste_bati_dist).length == 1){
       for(var key in liste_bati_dist){
-        alert("Vous êtes proche de "+ key);
+          alert("Vous êtes proche de " + key);
+          function showConfirm() {
+              confirm({
+                  title: 'Do you Want to delete these items?',
+                  content: 'Some descriptions',
+                  onOk() {
+                      console.log('OK');
+                  },
+                  onCancel() {
+                      console.log('Cancel');
+                  },
+              });
+          }
       }
     }
     else if(Object.keys(liste_bati_dist).length > 1){
@@ -50,7 +67,19 @@ export default class MapView extends Component {
         // console.log(nom);
       }
     }
-    alert("Vous êtes proche de "+ nom);
+        alert("Vous êtes proche de " + nom);
+        function showConfirm() {
+            confirm({
+                title: 'Do you Want to delete these items?',
+                content: 'Some descriptions',
+                onOk() {
+                    console.log('OK');
+                },
+                onCancel() {
+                    console.log('Cancel');
+                },
+            });
+        }
   }
         
 }
@@ -94,7 +123,7 @@ export default class MapView extends Component {
       (Lieu, index) => {
         var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
         var distance = latlng2.distanceTo(latlng);
-        if (distance < 100) {
+        if (distance < 20000) {
           if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
             tab_bat_dist[Lieu.nom_lieux] = distance;
             this.state.liste_bat[Lieu.nom_lieux] = 1;
