@@ -4,71 +4,99 @@ import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "../Design/map.css";
 import L from "leaflet";
 import icon from "../location-arrow-solid.svg";
-import axios from 'axios';
-import marq from '../marqueur.png';
-
+import axios from "axios";
+import marq from "../marqueur.png";
+import { Modal } from "antd";
+import Swal from "sweetalert2";
 var myicon = L.icon({
   iconUrl: icon,
   iconSize: [22, 52],
-  shadowUrl: "my-icon-shadow.png",
+  shadowUrl: "my-icon-shadow.png"
 });
 var mymarq = L.icon({
   iconUrl: marq,
   iconSize: [45, 50],
-  shadowUrl: 'my-icon-shadow.png',
+  shadowUrl: "my-icon-shadow.png"
 });
+
+const { confirm } = Modal;
 
 const center_map = [49.1191, 6.1727];
 export default class MapView extends Component {
-
-
   constructor(props) {
     super(props);
-    const watcher = navigator.geolocation.watchPosition(this.displayLocationInfo);
+    const watcher = navigator.geolocation.watchPosition(
+      this.displayLocationInfo
+    );
     this.state = {
       position: [49.1191, 6.1727],
       Place: [],
-      liste_bat: {},
-    }
+      liste_bat: {}
+    };
   }
-  batiment_proche = (liste_bati_dist) => {
-    // console.log(liste_bati_dist);
-    var nearest = 101;
+  batiment_proche = liste_bati_dist => {
+    console.log(liste_bati_dist);
+    var nearest = 50001;
     var nom;
-    // console.log(Object.keys(liste_bati_dist).length);
-    if(Object.keys(liste_bati_dist).length == 1){
-      for(var key in liste_bati_dist){
-        window.prompt("sometext","defaultText");
+    var description = "";
+    var img_link = "";
+    console.log(Object.keys(liste_bati_dist).length);
+    if (Object.keys(liste_bati_dist).length == 1) {
+      for (var key in liste_bati_dist) {
+        if (
+          window.confirm(
+            "Vous êtes proche de " + key + " voulez vous en savoir plus?"
+          )
+        ) {
+          console.log("Ok");
+        } else {
+          console.log("Pas ok");
+        }
       }
-    }
-    else if(Object.keys(liste_bati_dist).length > 1){
-    for(var key in liste_bati_dist){
-      if(liste_bati_dist[key] < nearest){
-        nearest = liste_bati_dist[key];
-        // console.log(nearest);
-        nom = key;
-        // console.log(nom);
+    } else if (Object.keys(liste_bati_dist).length > 1) {
+      for (var key in liste_bati_dist) {
+        if (liste_bati_dist[key].distance < nearest) {
+          nearest = liste_bati_dist[key].distance;
+          // console.log(nearest);
+          nom = key;
+          description = liste_bati_dist[key].description;
+          img_link = liste_bati_dist[key].image_link;
+          // console.log(nom);
+        }
       }
+      Swal.fire({
+        title: nom,
+        text: "Voulez vous en savoir plus sur le batiment?",
+        icon: "info",
+        showCancelButton: true,
+        confirmButtonText: "Oui",
+        cancelButtonText: "Non"
+      }).then(Oui => {
+        if (Oui.value) {
+          Swal.fire({
+            title: nom,
+            text: description,
+            imageUrl: img_link
+          });
+        }
+      });
     }
-    alert("Vous êtes proche de "+ nom);
-  }
-        
-}
+  };
   get_monument = async () => {
-    await axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
+    await axios
+      .get(
+        "https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php"
+      )
       .then(response => {
-        this.setState({ Place: response.data })
+        this.setState({ Place: response.data });
         //console.log(response.data);
         let liste_bat = {};
-        this.state.Place.map(
-          (Lieu, index) => {
-            liste_bat[Lieu.nom_lieux] = 0;
-          }
-        )
+        this.state.Place.map((Lieu, index) => {
+          liste_bat[Lieu.nom_lieux] = 0;
+        });
         this.setState({ liste_bat });
       });
-
-  }
+  };
   componentDidMount() {
     this.get_monument();
     this.start();
@@ -77,42 +105,47 @@ export default class MapView extends Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.displayLocationInfo);
     }
-  }
-  setTimeout = (() => {
-    navigator.geolocation.clearWatch(this.watcher);
-  }, 15000);
-  displayLocationInfo = (position) => {
+  };
+  setTimeout =
+    (() => {
+      navigator.geolocation.clearWatch(this.watcher);
+    },
+    15000);
+  displayLocationInfo = position => {
     const lng = position.coords.longitude;
     const lat = position.coords.latitude;
     var position = [];
     var tab_bat_dist = {};
     position.push(lat);
     position.push(lng);
-    this.setState({ position, });
+    this.setState({ position });
     var latlng = L.latLng(lat, lng);
-    this.state.Place.map(
-      (Lieu, index) => {
-        var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
-        var distance = latlng2.distanceTo(latlng);
-        if (distance < 100) {
-          if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
-            tab_bat_dist[Lieu.nom_lieux] = distance;
-            this.state.liste_bat[Lieu.nom_lieux] = 1;
-          }
+    this.state.Place.map((Lieu, index) => {
+      var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
+      var distance = latlng2.distanceTo(latlng);
+      if (distance < 50000) {
+        if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
+          tab_bat_dist[Lieu.nom_lieux] = {
+            distance: distance,
+            image_link: Lieu.image,
+            description: Lieu.description
+          };
+          this.state.liste_bat[Lieu.nom_lieux] = 1;
         }
-        else {
-          if (this.state.liste_bat[Lieu.nom_lieux] == 1) {
-            this.state.liste_bat[Lieu.nom_lieux] = 0;
-          }
+      } else {
+        if (this.state.liste_bat[Lieu.nom_lieux] == 1) {
+          this.state.liste_bat[Lieu.nom_lieux] = 0;
         }
       }
-    )
+    });
     this.batiment_proche(tab_bat_dist);
-  }
+  };
 
-  setTimeout = (() => {
-    navigator.geolocation.clearWatch(this.watcher);
-  }, 15000);
+  setTimeout =
+    (() => {
+      navigator.geolocation.clearWatch(this.watcher);
+    },
+    15000);
 
   render() {
     return (
@@ -126,17 +159,18 @@ export default class MapView extends Component {
             <span>Vous êtes ici</span>
           </Popup>
         </Marker>
-        {
-          this.state.Place.map(
-            (Lieu, index) =>
-              <Marker position={[Lieu.coord_nord, Lieu.coord_est]} icon={mymarq} key={Lieu.nom_lieux} className="Marker">
-                <Popup>
-                  <span>{Lieu.nom_lieux}</span>
-                </Popup>
-              </Marker>
-
-          )
-        }
+        {this.state.Place.map((Lieu, index) => (
+          <Marker
+            position={[Lieu.coord_nord, Lieu.coord_est]}
+            icon={mymarq}
+            key={Lieu.nom_lieux}
+            className="Marker"
+          >
+            <Popup>
+              <span>{Lieu.nom_lieux}</span>
+            </Popup>
+          </Marker>
+        ))}
       </Map>
     );
   }

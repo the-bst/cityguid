@@ -6,7 +6,30 @@
 
     .ant-btn {
         width: 50%;
+        background-color: #E5C486;
+        color: gray;
+        font-weight: bold;
+        height: 40px;
+    }
+
+    #map {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-bottom-style: none;
+        border-top-style: none;
+        border-left-style: none;
+        border-right-color: gray;
+    }
+
+    #listmon {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom-style: none;
+        border-top-style: none;
+        border-right-style: none;
+        border-left-color: darkgray;
     }
 }
+
 
 

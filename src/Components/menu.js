@@ -9,8 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'antd/dist/antd.css';
 import { Button, Icon, Carousel } from 'antd';
 
-
-
+import { FaMap, FaMonument } from "react-icons/fa";
 const ButtonGroup = Button.Group;
 
 export default class Sider extends React.Component {
@@ -27,12 +26,12 @@ export default class Sider extends React.Component {
 
             <ButtonGroup>
                 <Button id="map" type="primary" onClick={() => { this.props.showMapView() }}>
-                    <Icon type="left" />
-                    Map
+                    <FaMap size="2.2em" />
+
                 </Button>
                 <Button id="listmon" type="primary" onClick={() => { this.props.showListeView() }}>
-                    Liste Monuments
-                    <Icon type="right" />
+                    
+                   <FaMonument size="1.7em" />
                 </Button>
             </ButtonGroup>
         )
