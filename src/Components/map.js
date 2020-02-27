@@ -7,8 +7,7 @@ import icon from "../location-arrow-solid.svg";
 import axios from 'axios';
 import marq from '../marqueur.png';
 import { Modal } from 'antd';
-import swal from 'sweetalert';
-
+import Swal from 'sweetalert2'
 var myicon = L.icon({
   iconUrl: icon,
   iconSize: [22, 52],
@@ -65,31 +64,22 @@ export default class MapView extends Component {
         // console.log(nom);
       }
     }
-    swal({
+    Swal.fire({
       title: nom,
       text: "Voulez vous en savoir plus sur le batiment?",
       icon: "info",
-      buttons : {
-      cancel: {
-        text : "Non",
-        value : false,
-        visible : true,
-      },
-      confirm: {
-        text : "Oui",
-        value : true,
-        visible : true,
-      },
-    },
+      showCloseButton: true,
+      showCancelButton: true,
+      confirmButtonText:'Oui',
+      cancelButtonText:'Non',
       dangerMode: true,
     })
     .then((Oui) => {
-        console.log("Oui valentin: " + Oui);
         if(Oui){
-          swal({
+          Swal.fire({
             title: nom,
             text: description,
-            icon: img_link,
+            imageUrl: img_link,
           })
         } 
     }

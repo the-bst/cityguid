@@ -23,6 +23,7 @@
     "semantic-ui-react": "^0.88.2",
     "styled-components": "^5.0.1",
     "sweetalert": "^2.1.2",
+    "sweetalert2": "^9.8.2",
     "vendor": "^1.7.0"
   },
   "scripts": {
