@@ -48,4 +48,5 @@
 
 .ant-input-affix-wrapper {
     top : 40px;
+    z-index: 1001;
 }
