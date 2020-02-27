@@ -5,7 +5,13 @@ import "../Design/liste.css";
 import "antd/dist/antd.css";
 import { Carousel, Input } from "antd";
 import Fade from "react-reveal";
+import Swal from "sweetalert2";
+
+
 const { Search } = Input;
+
+
+
 export default class List extends React.Component {
 
     constructor(props) {
@@ -67,7 +73,11 @@ export default class List extends React.Component {
 
     checkError = () =>{
       if(this.state.error){
-        alert("Aucun batiment avec ce nom");
+        Swal.fire({
+          title: "Désolé",
+          text: "Aucun batiment ne correspond",
+          icon:"warning"
+        });
           this.setState({value:"",Textee:""});
       }
     }
