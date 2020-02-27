@@ -7,6 +7,7 @@ import icon from "../location-arrow-solid.svg";
 import axios from 'axios';
 import marq from '../marqueur.png';
 import { Modal } from 'antd';
+import swal from 'sweetalert';
 
 var myicon = L.icon({
   iconUrl: icon,
@@ -37,49 +38,62 @@ export default class MapView extends Component {
     }
   }
   batiment_proche = (liste_bati_dist) => {
-    // console.log(liste_bati_dist);
-    var nearest = 101;
+    console.log(liste_bati_dist);
+    var nearest = 50001;
     var nom;
-    // console.log(Object.keys(liste_bati_dist).length);
+    var description = "";
+    var img_link = "";
+    console.log(Object.keys(liste_bati_dist).length);
     if(Object.keys(liste_bati_dist).length == 1){
       for(var key in liste_bati_dist){
-          alert("Vous êtes proche de " + key);
-          function showConfirm() {
-              confirm({
-                  title: 'Do you Want to delete these items?',
-                  content: 'Some descriptions',
-                  onOk() {
-                      console.log('OK');
-                  },
-                  onCancel() {
-                      console.log('Cancel');
-                  },
-              });
+          if(window.confirm("Vous êtes proche de " + key + " voulez vous en savoir plus?")){
+            console.log("Ok");
+          }
+          else{
+            console.log("Pas ok");
           }
       }
     }
     else if(Object.keys(liste_bati_dist).length > 1){
     for(var key in liste_bati_dist){
-      if(liste_bati_dist[key] < nearest){
-        nearest = liste_bati_dist[key];
+      if(liste_bati_dist[key].distance < nearest){
+        nearest = liste_bati_dist[key].distance;
         // console.log(nearest);
         nom = key;
+        description = liste_bati_dist[key].description;
+        img_link = liste_bati_dist[key].image_link
         // console.log(nom);
       }
     }
-        alert("Vous êtes proche de " + nom);
-        function showConfirm() {
-            confirm({
-                title: 'Do you Want to delete these items?',
-                content: 'Some descriptions',
-                onOk() {
-                    console.log('OK');
-                },
-                onCancel() {
-                    console.log('Cancel');
-                },
-            });
-        }
+    swal({
+      title: nom,
+      text: "Voulez vous en savoir plus sur le batiment?",
+      icon: "info",
+      buttons : {
+      cancel: {
+        text : "Non",
+        value : false,
+        visible : true,
+      },
+      confirm: {
+        text : "Oui",
+        value : true,
+        visible : true,
+      },
+    },
+      dangerMode: true,
+    })
+    .then((Oui) => {
+        console.log("Oui valentin: " + Oui);
+        if(Oui){
+          swal({
+            title: nom,
+            text: description,
+            icon: img_link,
+          })
+        } 
+    }
+    )
   }
         
 }
@@ -114,7 +128,11 @@ export default class MapView extends Component {
     const lng = position.coords.longitude;
     const lat = position.coords.latitude;
     var position = [];
-    var tab_bat_dist = {};
+    var tab_bat_dist = {
+      distance : 0,
+      image_link : "",
+      description : "",
+    };
     position.push(lat);
     position.push(lng);
     this.setState({ position, });
@@ -123,9 +141,9 @@ export default class MapView extends Component {
       (Lieu, index) => {
         var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
         var distance = latlng2.distanceTo(latlng);
-        if (distance < 20000) {
+        if (distance < 50000) {
           if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
-            tab_bat_dist[Lieu.nom_lieux] = distance;
+            tab_bat_dist[Lieu.nom_lieux] = {distance : distance,image_link : Lieu.image, description : Lieu.description};
             this.state.liste_bat[Lieu.nom_lieux] = 1;
           }
         }
