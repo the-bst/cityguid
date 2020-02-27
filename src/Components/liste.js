@@ -12,23 +12,62 @@ export default class List extends React.Component {
         this.state = {
             Place: [],
             Textee : "",
-            Erreur : false,
+            error : false,
+            value :"",
         }
     }
+
+    getData = async () =>{
+      await axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
+          .then(response => {
+              this.setState({ Place: response.data })
+
+          })
+    }
     componentDidMount() {
-
-        axios.get("https://devweb.iutmetz.univ-lorraine.fr/~schnei349u/api_react/listelieu.php")
-            .then(response => {
-                this.setState({ Place: response.data })
-
-            })
+      this.getData();
     }
-    handleChange = (event) => {
-        const Textee = event.target.value.toLowerCase();
+    handleChange = async (event) => {
+        this.errorOn();
+        var Textee =await event.target.value.toLowerCase();
         this.setState({ Textee })
-        console.log(this.state.Textee);
+        //console.log("Erreur avant map :"+ this.state.error);
+        this.state.Place.map(
+            (Lieu, index) =>
+            {
+              //console.log("taille textee "+this.state.Textee.lengt);
+               if (!this.state.Textee==""){
+                if (Lieu.nom_lieux.toLowerCase().includes(this.state.Textee.toLowerCase())) {
+                  this.errorOff();
+      }
+    }
+    }
+    );
+    //console.log("Erreur après map :"+ this.state.error);
+    if (!this.state.Textee==""){
+      this.setState({value:Textee});
+      this.checkError();
+    }
+  }
+
+    errorOn = () =>{
+      if(!this.state.error){
+        this.setState({error:true});
+      }
     }
 
+    errorOff = () =>{
+      if(this.state.error){
+        this.setState({error:false});
+      }
+    }
+
+    checkError = () =>{
+      if(this.state.error){
+        alert("Aucun batiment avec ce nom");
+          this.setState({value:"",Textee:""});
+      }
+    }
 
 
     render() {
@@ -36,11 +75,10 @@ export default class List extends React.Component {
             <div>
             <div>
             <Search
-        onChange={this.handleChange}
-        placeholder="Rechercher..."
-        size="large"
-
-
+              onChange={this.handleChange}
+              placeholder="Rechercher..."
+              size="large"
+              value={this.state.value}
             />
             </div>
             <div className="all_list">
