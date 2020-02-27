@@ -1,12 +1,13 @@
   .ant-carousel{
-      width: 35%;
+      width: 60%;
       margin: auto;
   }
 
   .all_list{
       margin: auto;
       color: rgb(53, 51, 51);
-      background: linear-gradient(to bottom,  rgb(100, 167, 235),  rgb(176, 206, 226));
+      background: linear-gradient(to bottom,  #E5C486,  rgba(173, 160, 136, 0.678));
+
   }
 
   .description_text{
@@ -16,14 +17,16 @@
     border-top: solid;
     border-bottom: solid;
     text-align: justify;
-    font-family: Snell Roundhand, cursive;
-
+    font-family: Gabriola;
+    font-size: 18px;
+    letter-spacing: .005em;
   }
 
   .wiki_link{
-      color:white;
+      color:rgb(99, 96, 96);
       padding-left: 10%;
       font-size: 10px;
+      font-weight: bold;
   }
 
   .monument_part{
@@ -32,10 +35,11 @@
   }
 
   .title_mon{
+    padding-top: 1%;
     color: rgba(27, 26, 26, 0.856);
     text-align: center;
     text-transform: uppercase;
-    letter-spacing: .1em;
+    letter-spacing: .05em;
     top: 25%;
     width: 100%;
     text-decoration: overline;
