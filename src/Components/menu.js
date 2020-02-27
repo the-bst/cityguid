@@ -25,13 +25,14 @@ export default class Sider extends React.Component {
 
 
             <ButtonGroup>
+                
+                    <Button id="listmon" type="primary" onClick={() => { this.props.showListeView() }}>
+                    
+                    <FaMonument size="2.2em" />
+                </Button>
                 <Button id="map" type="primary" onClick={() => { this.props.showMapView() }}>
                     <FaMap size="2.2em" />
-
-                </Button>
-                <Button id="listmon" type="primary" onClick={() => { this.props.showListeView() }}>
-                    
-                   <FaMonument size="2.2em" />
+                   
                 </Button>
             </ButtonGroup>
         )

@@ -9,8 +9,8 @@ export default class App extends React.Component{
     super(props);
 
     this.state = {
-      showMapView: true,
-      showListeView: false,
+      showMapView: false,
+      showListeView: true,
     }
 
     this.showMapView = this.showMapView.bind(this);
@@ -54,7 +54,7 @@ export default class App extends React.Component{
     
     return(
       <div className="body">
-        <Sider id="clc" className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
+        <Sider  className= "Sider" showMapView={this.showMapView} showListeView={this.showListeView} />
         {this.state.showMapView ? <MapView className="Map"/> : null }
         {this.state.showListeView ? (
           <div id="liste">
