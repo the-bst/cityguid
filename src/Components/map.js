@@ -45,6 +45,7 @@ export default class MapView extends Component {
       for (var key in liste_bati_dist) {
         description = liste_bati_dist[key].description;
         img_link = liste_bati_dist[key].image_link;
+        navigator.vibrate(1000);
         Swal.fire({
           title: key,
           text: "Voulez vous en savoir plus sur le batiment?",
@@ -73,6 +74,7 @@ export default class MapView extends Component {
           // console.log(nom);
         }
       }
+      navigator.vibrate(1000);
       Swal.fire({
         title: nom,
         text: "Voulez vous en savoir plus sur le batiment?",

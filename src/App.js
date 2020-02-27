@@ -9,8 +9,8 @@ export default class App extends React.Component{
     super(props);
 
     this.state = {
-      showMapView: true,
-      showListeView: false,
+      showMapView: false,
+      showListeView: true,
     }
 
     this.showMapView = this.showMapView.bind(this);
