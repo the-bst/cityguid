@@ -3,19 +3,19 @@ import ReactDOM from "react-dom";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "../Design/map.css";
 import L from "leaflet";
-import icon from "../location-arrow-solid.svg";
+import icon from "../position.png";
 import axios from "axios";
 import marq from "../marqueur.png";
 import { Modal } from "antd";
 import Swal from "sweetalert2";
 var myicon = L.icon({
   iconUrl: icon,
-  iconSize: [22, 52],
+  iconSize: [30, 50],
   shadowUrl: "my-icon-shadow.png"
 });
 var mymarq = L.icon({
   iconUrl: marq,
-  iconSize: [45, 50],
+  iconSize: [55, 55],
   shadowUrl: "my-icon-shadow.png"
 });
 
