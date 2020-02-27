@@ -3,19 +3,19 @@ import ReactDOM from "react-dom";
 import { Map, Marker, Popup, TileLayer } from "react-leaflet";
 import "../Design/map.css";
 import L from "leaflet";
-import icon from "../location-arrow-solid.svg";
+import icon from "../position.png";
 import axios from "axios";
 import marq from "../marqueur.png";
 import { Modal } from "antd";
 import Swal from "sweetalert2";
 var myicon = L.icon({
   iconUrl: icon,
-  iconSize: [22, 52],
+  iconSize: [30, 50],
   shadowUrl: "my-icon-shadow.png"
 });
 var mymarq = L.icon({
   iconUrl: marq,
-  iconSize: [45, 50],
+  iconSize: [55, 55],
   shadowUrl: "my-icon-shadow.png"
 });
 
@@ -36,22 +36,31 @@ export default class MapView extends Component {
   }
   batiment_proche = liste_bati_dist => {
     console.log(liste_bati_dist);
-    var nearest = 50001;
+    var nearest = 2601;
     var nom;
     var description = "";
     var img_link = "";
     console.log(Object.keys(liste_bati_dist).length);
     if (Object.keys(liste_bati_dist).length == 1) {
       for (var key in liste_bati_dist) {
-        if (
-          window.confirm(
-            "Vous êtes proche de " + key + " voulez vous en savoir plus?"
-          )
-        ) {
-          console.log("Ok");
-        } else {
-          console.log("Pas ok");
-        }
+        description = liste_bati_dist[key].description;
+        img_link = liste_bati_dist[key].image_link;
+        Swal.fire({
+          title: key,
+          text: "Voulez vous en savoir plus sur le batiment?",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Oui",
+          cancelButtonText: "Non"
+        }).then(Oui => {
+          if (Oui.value) {
+            Swal.fire({
+              title: key,
+              text: description,
+              imageUrl: img_link
+            });
+          }
+        });
       }
     } else if (Object.keys(liste_bati_dist).length > 1) {
       for (var key in liste_bati_dist) {
@@ -123,7 +132,7 @@ export default class MapView extends Component {
     this.state.Place.map((Lieu, index) => {
       var latlng2 = L.latLng(Lieu.coord_nord, Lieu.coord_est);
       var distance = latlng2.distanceTo(latlng);
-      if (distance < 50000) {
+      if (distance < 2600) {
         if (this.state.liste_bat[Lieu.nom_lieux] == 0) {
           tab_bat_dist[Lieu.nom_lieux] = {
             distance: distance,
