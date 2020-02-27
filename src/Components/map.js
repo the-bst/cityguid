@@ -68,14 +68,12 @@ export default class MapView extends Component {
       title: nom,
       text: "Voulez vous en savoir plus sur le batiment?",
       icon: "info",
-      showCloseButton: true,
       showCancelButton: true,
       confirmButtonText:'Oui',
       cancelButtonText:'Non',
-      dangerMode: true,
     })
     .then((Oui) => {
-        if(Oui){
+        if(Oui.value){
           Swal.fire({
             title: nom,
             text: description,
@@ -118,11 +116,7 @@ export default class MapView extends Component {
     const lng = position.coords.longitude;
     const lat = position.coords.latitude;
     var position = [];
-    var tab_bat_dist = {
-      distance : 0,
-      image_link : "",
-      description : "",
-    };
+    var tab_bat_dist = {};
     position.push(lat);
     position.push(lng);
     this.setState({ position, });
